@@ -7,58 +7,56 @@ node {
     }
 
     stage('Build image'){
-//        sh 'echo "Building the image"'
+        sh 'echo "Building the image"'
         app = docker.build("meets0ni/webapp")
         sh 'docker images'
     }
 
     stage('Test image') {
-  
         app.inside {
-  //          sh 'echo "Testing the image"'
+            sh 'echo "Testing the image"'
             sh 'echo "Tests passed"'
         }
     }
 
     stage('Push image') {
 
-    //    sh 'echo "Pushing the image"'
+        sh 'echo "Pushing the image"'
         
         docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
             app.push("${env.BUILD_NUMBER}")
         }
     }    
 
-    // stage('Trigger ManifestUpdate') {
-    //     parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
-    // }
+    stage('Update image teg') {
 
-    // stage('Update image teg') {
+        sh "cat manifest.yaml"
+        sh "sed -i 's+meets0ni/test.*meets0ni/test:${DOCKERTAG}+g' manifest.yaml"
+        sh "cat manifest.yaml"
+    }
 
-    //     sh "cat deployment.yaml"
-    //     // sh "sed -i 's+meets0ni/test.*+meets0ni/test:${DOCKERTAG}+g' deployment.yaml"
-    //     sh "sed -i 's+meets0ni/test.*meets0ni/test:${DOCKERTAG}+g' deployment.yaml"
-    //     sh "cat deployment.yaml"
-    // }
+    stage('Push Latest code'){
+        sh "git add ."
+        sh "git commit -m 'Done by Jenkins Job changemanifest: ${env.BUILD_NUMBER}'"
+        sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/Jenkins-CICD.git HEAD:main"
+    }
 
     stage("SSH Into k8s Server") {
 
         sh 'echo "connecting via ssh to master node"'
         def remote = [:]
-        remote.name = 'gitK8s'
-        remote.host = '20.204.116.27'
+        remote.name = 'k8smaster'
+        remote.host = '11.223.14.274'
         remote.user = 'meet'
         remote.password = 'meet'
         remote.allowAnyHosts = true
 
-        stage('Put deployment.yaml into k8smaster') {
-            sshPut remote: remote, from: 'deployment.yaml', into: '.'
+        stage('Put manifest.yaml into k8smaster') {
+            sshPut remote: remote, from: 'manifest.yaml', into: '.'
         } 
 
         stage('Deploy simple web') {
-          sshCommand remote: remote, command: "kubectl apply -f deployment.yaml"
+            sshCommand remote: remote, command: "kubectl apply -f manifest.yaml"
         }
     } 
-
 }
-
