@@ -1,9 +1,7 @@
 # Automating the Deployment Lifecycle with Jenkins and Kubernetes
 
-This project showcases the automation of the deployment lifecycle using Jenkins and Kubernetes. 
-By following a set of predefined steps, developers can seamlessly deploy their code changes. 
-The pipeline includes actions like GitHub integration, Docker image management, manifest.yaml versioning, 
-and Kubernetes environment provisioning, resulting in a robust and reliable development and deployment process
+This project showcases the automation of the deployment lifecycle using Jenkins and Kubernetes. By following a set of predefined steps, developers can seamlessly deploy their code changes. The pipeline includes actions like GitHub integration, Docker image management, manifest.yaml versioning, and Kubernetes environment provisioning, resulting in a robust and reliable development and deployment process
+
 ## Workflow Steps
 
 1. **Developer Pushes Code to GitHub**: Developers push their code to a GitHub repository.
