@@ -69,7 +69,7 @@ Follow these steps to set up the Jenkins CI/CD pipeline:
 **Step:9. Run the Jenkins Job**:
    - Trigger the Jenkins job manually or set up webhooks or triggers as needed to automate the workflow when code is pushed to the GitHub repository.
 
-10. **Monitor and Debug**:
+**Step:10. Monitor and Debug**:
     - Monitor your Jenkins job for successful or failed builds.
     - Debug any issues by checking the console output and logs.
 
