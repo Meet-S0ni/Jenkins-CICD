@@ -65,5 +65,3 @@ Follow these steps to set up the Jenkins CI/CD pipeline:
 
 By following these steps, you can set up and configure Jenkins to automate your CI/CD workflow for your web application.
 
-Feel free to customize and modify the documentation to match your specific project and requirements.
-
