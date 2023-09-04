@@ -28,7 +28,7 @@ node {
         }
     }    
 
-    stage('Update image teg') {
+    stage('Update image teg') {  // replace tocken in azure devops
 
         sh "cat manifest.yaml"
         sh "sed -i 's+meets0ni/test.*meets0ni/test:${DOCKERTAG}+g' manifest.yaml"
@@ -45,10 +45,15 @@ node {
 
         sh 'echo "connecting via ssh to master node"'
         def remote = [:]
-        remote.name = 'k8smaster'
-        remote.host = '11.223.14.274'
-        remote.user = 'meet'
+        remote.name     = 'k8smaster'
+        remote.host     = '11.223.14.274'
+        remote.user     = 'meet'
         remote.password = 'meet'
+        // below are parameterized 
+        remote.name     = ${K8S_HOSTNAME}
+        remote.host     = ${K8S_HOST}
+        remote.user     = ${K8S_HOST_USER}
+        remote.password = ${K8S_HOST_PASSWORD}
         remote.allowAnyHosts = true
 
         stage('Put manifest.yaml into k8smaster') {
