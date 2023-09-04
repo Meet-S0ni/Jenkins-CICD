@@ -1,26 +1,29 @@
 # Automating the Deployment Lifecycle with Jenkins and Kubernetes
 
-This project showcases the automation of the deployment lifecycle using Jenkins and Kubernetes. By following a set of predefined steps, developers can seamlessly deploy their code changes. The pipeline includes actions like GitHub integration, Docker image management, manifest.yaml versioning, and Kubernetes environment provisioning, resulting in a robust and reliable development and deployment process
+This project showcases the automation of the deployment lifecycle using Jenkins and Kubernetes. 
+By following a set of predefined steps, developers can seamlessly deploy their code changes. 
+The pipeline includes actions like GitHub integration, Docker image management, manifest.yaml versioning, 
+and Kubernetes environment provisioning, resulting in a robust and reliable development and deployment process
 
 ## Workflow Steps
 
-1. **Developer Pushes Code to GitHub**: Developers push their code to a GitHub repository.
+**1. Developer Pushes Code to GitHub**: Developers push their code to a GitHub repository.
 
-2. **Jenkins Clones Repository**: Jenkins clones the GitHub repository to its environment.
+**2. Jenkins Clones Repository**: Jenkins clones the GitHub repository to its environment.
 
-3. **Jenkins Builds Docker Image**: Jenkins builds a Docker image from the source code.
+**3. Jenkins Builds Docker Image**: Jenkins builds a Docker image from the source code.
 
-4. **Jenkins Pushes Image to Docker Hub**: The Docker image is pushed to Docker Hub.
+**4. Jenkins Pushes Image to Docker Hub**: The Docker image is pushed to Docker Hub.
 
-5. **Update Image Tag in manifest.yaml**: Jenkins updates the image tag in the `manifest.yaml` file with the latest build tag.
+**5. Update Image Tag in manifest.yaml**: Jenkins updates the image tag in the `manifest.yaml` file with the latest build tag.
 
-6. **Jenkins Pushes Code to GitHub**: Jenkins pushes all code changes, including the updated `manifest.yaml`, back to the GitHub repository.
+**6. Jenkins Pushes Code to GitHub**: Jenkins pushes all code changes, including the updated `manifest.yaml`, back to the GitHub repository.
 
-7. **Jenkins SSH Into Kubernetes Server**: Jenkins establishes an SSH connection to a Kubernetes server.
+**7. Jenkins SSH Into Kubernetes Server**: Jenkins establishes an SSH connection to a Kubernetes server.
 
-8. **Jenkins Copies manifest.yaml to Kubernetes Server**: The `manifest.yaml` file is copied to the Kubernetes server using SCP.
+**8. Jenkins Copies manifest.yaml to Kubernetes Server**: The `manifest.yaml` file is copied to the Kubernetes server using SCP.
 
-9. **Jenkins Applies Manifest to Kubernetes Environment**: Jenkins applies the updated manifest file to the Kubernetes environment, deploying the web application.
+**9. Jenkins Applies Manifest to Kubernetes Environment**: Jenkins applies the updated manifest file to the Kubernetes environment, deploying the web application.
 
 ## Jenkinsfile
 
